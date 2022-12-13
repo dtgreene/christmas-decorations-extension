@@ -1,4 +1,4 @@
-const defaultColors = ['#188399', '#D44359', '#E8A36A', '#4C38A8', '#9C3161'];
+const defaultColors = ['#c501e2', '#2ef8a0', '#ff0534', '#f82d97', '#01c4e7'];
 const defaultSides = { top: true, right: false, bottom: false, left: false };
 
 let settings = {
