@@ -60,17 +60,17 @@ function createLights() {
     root.innerHTML = root.innerHTML.concat(createLightGroup(cols));
   }
   if (sides.right) {
-    root.innerHTML = root.innerHTML.concat(createLightGroup(rows, 'col'));
-  }
-  if (sides.bottom) {
     root.innerHTML = root.innerHTML.concat(
       createLightGroup(rows, 'col', 'end')
     );
   }
-  if (sides.left) {
+  if (sides.bottom) {
     root.innerHTML = root.innerHTML.concat(
       createLightGroup(cols, 'row', 'end')
     );
+  }
+  if (sides.left) {
+    root.innerHTML = root.innerHTML.concat(createLightGroup(rows, 'col'));
   }
 }
 
