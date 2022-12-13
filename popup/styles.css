@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+  background: #222;
+  color: #fff;
+  padding: 16px;
+  min-width: 300px;
+  border: 1px solid #555;
+}
+
+input.form-control[type="text"] {
+  background: #333;
+  color: inherit;
+  border-color: #555;
+}
+
+.color-preview {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  background: blue;
+}

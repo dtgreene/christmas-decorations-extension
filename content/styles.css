@@ -1,0 +1,211 @@
+.xmas-lights {
+  position: fixed;
+  z-index: 9001;
+}
+
+.xmas-light-group {
+  position: fixed;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.xmas-light-group.xmas-row {
+  width: 100%;
+  left: 0;
+}
+
+.xmas-light-group.xmas-col {
+  flex-direction: column;
+  height: 100%;
+  top: 0;
+}
+
+.xmas-light-group.xmas-row.xmas-start {
+  top: 0;
+}
+
+.xmas-light-group.xmas-row.xmas-end {
+  bottom: 0;
+}
+
+.xmas-light-group.xmas-col.xmas-start {
+  left: 0;
+}
+
+.xmas-light-group.xmas-col.xmas-end {
+  right: 0;
+}
+
+.xmas-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.xmas-light-group.xmas-row .xmas-container {
+  width: var(--xmas-spacing);
+  padding: 8px 0;
+}
+
+.xmas-light-group.xmas-col .xmas-container {
+  height: var(--xmas-spacing);
+  padding: 0 8px;
+}
+
+.xmas-container:last-child .xmas-wire {
+  display: none;
+}
+
+.xmas-wire {
+  position: absolute;
+  width: var(--xmas-spacing);
+  height: var(--xmas-spacing);
+}
+
+.xmas-light-group.xmas-row.xmas-start .xmas-wire {
+  transform: translateX(50%);
+  bottom: 0;
+}
+
+.xmas-light-group.xmas-row.xmas-end .xmas-wire {
+  transform: translateX(50%) scaleY(-1);
+  top: 0;
+}
+
+.xmas-light-group.xmas-col.xmas-start .xmas-wire {
+  transform: translateY(50%) rotate(-90deg);
+  right: 0;
+}
+
+.xmas-light-group.xmas-col.xmas-end .xmas-wire {
+  transform: translateY(50%) rotate(-90deg) scaleY(-1);
+  left: 0;
+}
+
+.xmas-socket {
+  position: absolute;
+  z-index: 0;
+  border-radius: 2px;
+  background: #294b29;
+}
+
+.xmas-light-group.xmas-row .xmas-socket {
+  width: 8px;
+  height: 12px;
+}
+
+.xmas-light-group.xmas-col .xmas-socket {
+  width: 12px;
+  height: 8px;
+}
+
+.xmas-light-group.xmas-row.xmas-end .xmas-socket {
+  bottom: 0;
+}
+
+.xmas-light-group.xmas-row.xmas-start .xmas-socket {
+  top: 0;
+}
+
+.xmas-light-group.xmas-col.xmas-start .xmas-socket {
+  left: 0;
+}
+
+.xmas-light-group.xmas-col.xmas-end .xmas-socket {
+  right: 0;
+}
+
+.xmas-bulb {
+  z-index: 10;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+}
+
+.xmas-container:nth-child(5n + 1) .xmas-bulb {
+  box-shadow: 0 0 var(--xmas-shadow) var(--xmas-color-1);
+  background: var(--xmas-color-1);
+  animation: xmas-animation-1 1s infinite alternate-reverse;
+}
+
+.xmas-container:nth-child(5n + 2) .xmas-bulb {
+  box-shadow: 0 0 var(--xmas-shadow) var(--xmas-color-2);
+  background: var(--xmas-color-2);
+  animation: xmas-animation-2 1s infinite alternate-reverse -1s;
+}
+
+.xmas-container:nth-child(5n + 3) .xmas-bulb {
+  box-shadow: 0 0 var(--xmas-shadow) var(--xmas-color-3);
+  background: var(--xmas-color-3);
+  animation: xmas-animation-3 1s infinite alternate-reverse -2s;
+}
+
+.xmas-container:nth-child(5n + 4) .xmas-bulb {
+  box-shadow: 0 0 var(--xmas-shadow) var(--xmas-color-4);
+  background: var(--xmas-color-4);
+  animation: xmas-animation-4 1s infinite alternate-reverse -3s;
+}
+
+.xmas-container:nth-child(5n + 5) .xmas-bulb {
+  box-shadow: 0 0 var(--xmas-shadow) var(--xmas-color-5);
+  background: var(--xmas-color-5);
+  animation: xmas-animation-5 1s infinite alternate-reverse -4s;
+}
+
+@keyframes xmas-animation-1 {
+  from {
+    background: var(--xmas-color-1);
+    box-shadow: 0 0 var(--xmas-shadow) var(--xmas-color-1);
+  }
+  to {
+    background: var(--xmas-color-1-fade);
+    box-shadow: 0 0 var(--xmas-shadow) var(--xmas-color-1-fade);
+  }
+}
+
+@keyframes xmas-animation-2 {
+  from {
+    background: var(--xmas-color-2);
+    box-shadow: 0 0 var(--xmas-shadow) var(--xmas-color-2);
+  }
+  to {
+    background: var(--xmas-color-2-fade);
+    box-shadow: 0 0 var(--xmas-shadow) var(--xmas-color-2-fade);
+  }
+}
+
+@keyframes xmas-animation-3 {
+  from {
+    background: var(--xmas-color-3);
+    box-shadow: 0 0 var(--xmas-shadow) var(--xmas-color-3);
+  }
+  to {
+    background: var(--xmas-color-3-fade);
+    box-shadow: 0 0 var(--xmas-shadow) var(--xmas-color-3-fade);
+  }
+}
+
+@keyframes xmas-animation-4 {
+  from {
+    background: var(--xmas-color-4);
+    box-shadow: 0 0 var(--xmas-shadow) var(--xmas-color-4);
+  }
+  to {
+    background: var(--xmas-color-4-fade);
+    box-shadow: 0 0 var(--xmas-shadow) var(--xmas-color-4-fade);
+  }
+}
+
+@keyframes xmas-animation-5 {
+  from {
+    background: var(--xmas-color-5);
+    box-shadow: 0 0 var(--xmas-shadow) var(--xmas-color-5);
+  }
+  to {
+    background: var(--xmas-color-5-fade);
+    box-shadow: 0 0 var(--xmas-shadow) var(--xmas-color-5-fade);
+  }
+}
