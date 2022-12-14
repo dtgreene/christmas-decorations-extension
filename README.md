@@ -1,3 +1,3 @@
 # Christmas Lights
 
-A FireFox extension that adds Christmas lights to any website 
+A Chrome and FireFox extension that adds Christmas decorations to any website 
