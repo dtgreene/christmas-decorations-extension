@@ -1,7 +1,7 @@
 {
   "name": "Christmas Lights Extension",
-  "version": "0.3",
-  "permissions": ["activeTab", "scripting", "storage"],
+  "version": "0.4",
+  "permissions": ["storage"],
   "icons": { "48": "icons/48.png", "96": "icons/96.png" },
   "content_scripts": [
     {
