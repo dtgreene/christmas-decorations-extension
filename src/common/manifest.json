@@ -1,7 +1,6 @@
 {
   "name": "Christmas Lights Extension",
   "version": "0.3",
-  "manifest_version": 2,
   "permissions": ["activeTab", "scripting", "storage"],
   "icons": { "48": "icons/48.png", "96": "icons/96.png" },
   "content_scripts": [
@@ -11,11 +10,5 @@
       "css": ["content/styles.css"],
       "run_at": "document_idle"
     }
-  ],
-  "browser_action": {
-    "default_icon": "icons/96.png",
-    "default_title": "Christmas Lights",
-    "default_popup": "popup/index.html",
-    "browser_style": true
-  }
+  ]
 }

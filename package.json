@@ -1,0 +1,21 @@
+{
+  "name": "christmas-lights-extension",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "prepare": "node ./scripts/prepare.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dtgreene/christmas-lights-extension.git"
+  },
+  "author": "Dylan Greene",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dtgreene/christmas-lights-extension/issues"
+  },
+  "homepage": "https://github.com/dtgreene/christmas-lights-extension#readme",
+  "devDependencies": {
+    "fs-extra": "^11.1.0"
+  }
+}

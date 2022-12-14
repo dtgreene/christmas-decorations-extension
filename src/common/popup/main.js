@@ -6,16 +6,15 @@ let settings = {
   sides: defaultSides,
 };
 
+const storage = window.browser ? browser.storage.local : chrome.storage.local;
+
 async function init() {
-  const { colors, sides } = await browser.storage.local.get([
-    'colors',
-    'sides',
-  ]);
+  const { colors, sides } = await storage.get(['colors', 'sides']);
 
   // set default colors
   if (!colors) {
     settings.colors = defaultColors;
-    await browser.storage.local.set({ colors: defaultColors });
+    await storage.set({ colors: defaultColors });
   } else {
     // otherwise, use the value from storage
     settings.colors = colors;
@@ -23,7 +22,7 @@ async function init() {
   // set default sides
   if (!sides) {
     settings.sides = defaultSides;
-    await browser.storage.local.set({ sides: defaultSides });
+    await storage.set({ sides: defaultSides });
   } else {
     // otherwise, use the value from storage
     settings.sides = sides;
@@ -67,7 +66,7 @@ async function handleSideChange(event) {
     // set settings
     settings.sides[key] = event.target.checked;
     // save settings
-    await browser.storage.local.set({ sides: settings.sides });
+    await storage.set({ sides: settings.sides });
   }
 }
 
@@ -81,7 +80,7 @@ async function handleColorChange(event) {
     // set settings
     settings.colors[index] = event.target.value;
     // save settings
-    await browser.storage.local.set({ colors: settings.colors });
+    await storage.set({ colors: settings.colors });
   }
 }
 

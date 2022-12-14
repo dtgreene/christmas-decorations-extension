@@ -1,0 +1,9 @@
+{
+  "action": {
+    "default_icon": "icons/96.png",
+    "default_title": "Christmas Lights",
+    "default_popup": "popup/index.html",
+    "browser_style": true
+  },
+  "manifest_version": 3
+}

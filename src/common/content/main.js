@@ -4,13 +4,9 @@ root.className = 'xmas-lights';
 // append to the dom
 document.body.appendChild(root);
 
-const defaultColors = prepareColors([
-  '#c501e2',
-  '#2ef8a0',
-  '#ff0534',
-  '#f82d97',
-  '#01c4e7',
-]);
+const storage = window.browser ? browser.storage.local : chrome.storage.local;
+
+const defaultColors = ['#c501e2', '#2ef8a0', '#ff0534', '#f82d97', '#01c4e7'];
 const defaultSides = { top: true, right: false, bottom: false, left: false };
 
 const settings = {
@@ -30,10 +26,9 @@ async function init() {
   const { colors } = settings;
 
   // set the color CSS variables
-  colors.forEach(([color1, color2], index) => {
+  colors.forEach((color1, index) => {
     const prefix = `--xmas-color-${index + 1}`;
     document.body.style.setProperty(prefix, color1);
-    document.body.style.setProperty(`${prefix}-fade`, color2);
   });
 
   // set the spacing CSS variable
@@ -99,39 +94,12 @@ function createLightGroup(count, orientation = 'row', position = 'start') {
 }
 
 async function getSettings() {
-  const { colors, sides } = await browser.storage.local.get([
-    'colors',
-    'sides',
-  ]);
+  const { colors, sides } = await storage.get(['colors', 'sides']);
 
   if (colors) {
-    settings.colors = prepareColors(colors);
+    settings.colors = colors;
   }
   if (sides) {
     settings.sides = sides;
   }
-}
-
-function prepareColors(colors) {
-  return colors.map((color1) => [color1, shadeHexColor(color1, -0.2)]);
-}
-
-function shadeHexColor(color, percent) {
-  const f = parseInt(color.slice(1), 16),
-    t = percent < 0 ? 0 : 255,
-    p = percent < 0 ? percent * -1 : percent,
-    R = f >> 16,
-    G = (f >> 8) & 0x00ff,
-    B = f & 0x0000ff;
-  return (
-    '#' +
-    (
-      0x1000000 +
-      (Math.round((t - R) * p) + R) * 0x10000 +
-      (Math.round((t - G) * p) + G) * 0x100 +
-      (Math.round((t - B) * p) + B)
-    )
-      .toString(16)
-      .slice(1)
-  );
 }
