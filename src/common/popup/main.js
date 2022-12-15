@@ -1,32 +1,19 @@
-const defaultColors = ['#c501e2', '#2ef8a0', '#ff0534', '#f82d97', '#01c4e7'];
-const defaultSides = { top: true, right: false, bottom: false, left: false };
+'use strict';
 
-let settings = {
-  colors: defaultColors,
-  sides: defaultSides,
+const defaultSettings = {
+  colors: ['#c501e2', '#2ef8a0', '#ff0534', '#f82d97', '#01c4e7'],
+  sides: { top: true, right: false, bottom: false, left: false },
+  snow: { enabled: false, density: 0.2 },
 };
+const settings = defaultSettings;
 
+// setup aliases for chrome or firefox
 const storage = window.browser ? browser.storage.local : chrome.storage.local;
+const tabs = window.browser ? browser.tabs : chrome.tabs;
 
 async function init() {
-  const { colors, sides } = await storage.get(['colors', 'sides']);
-
-  // set default colors
-  if (!colors) {
-    settings.colors = defaultColors;
-    await storage.set({ colors: defaultColors });
-  } else {
-    // otherwise, use the value from storage
-    settings.colors = colors;
-  }
-  // set default sides
-  if (!sides) {
-    settings.sides = defaultSides;
-    await storage.set({ sides: defaultSides });
-  } else {
-    // otherwise, use the value from storage
-    settings.sides = sides;
-  }
+  // load and parse settings
+  await loadSettings(['colors', 'sides', 'snow']);
 
   // init side checkboxes
   initSideCheckbox(0, settings.sides.top);
@@ -35,11 +22,36 @@ async function init() {
   initSideCheckbox(3, settings.sides.left);
 
   // init color inputs
-  initColorInput(0, settings.colors[0]);
-  initColorInput(1, settings.colors[1]);
-  initColorInput(2, settings.colors[2]);
-  initColorInput(3, settings.colors[3]);
-  initColorInput(4, settings.colors[4]);
+  initColorInput(0);
+  initColorInput(1);
+  initColorInput(2);
+  initColorInput(3);
+  initColorInput(4);
+
+  // init snow fields
+  const checkbox = document.getElementById('snow-check');
+  checkbox.checked = settings.snow.enabled;
+  checkbox.addEventListener('change', handleSnowCheckChange);
+  const range = document.getElementById('snow-range');
+  range.value = settings.snow.density;
+  range.addEventListener('change', handleSnowDensityChange);
+
+  // listener for the update button
+  const updateButton = document.getElementById('update-btn');
+  updateButton.addEventListener('click', handleUpdateClick, false);
+}
+
+async function loadSettings(keys) {
+  const storedSettings = await storage.get(keys);
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i];
+    if (storedSettings[key]) {
+      settings[key] = storedSettings[key];
+    } else {
+      settings[key] = defaultSettings[key];
+      await storage.set({ [key]: defaultSettings[key] });
+    }
+  }
 }
 
 function initSideCheckbox(index, defaultValue = false) {
@@ -48,12 +60,12 @@ function initSideCheckbox(index, defaultValue = false) {
   element.checked = defaultValue;
 }
 
-function initColorInput(index, defaultValue = '') {
+function initColorInput(index) {
   const element = document.getElementById(`color-${index}-input`);
   element.addEventListener('change', handleColorChange, false);
-  element.value = defaultValue;
+  element.value = settings.colors[index];
   const previewElement = document.getElementById(`color-${index}-preview`);
-  previewElement.style.background = defaultValue;
+  previewElement.style.background = settings.colors[index];
 }
 
 async function handleSideChange(event) {
@@ -81,6 +93,35 @@ async function handleColorChange(event) {
     settings.colors[index] = event.target.value;
     // save settings
     await storage.set({ colors: settings.colors });
+  }
+}
+
+async function handleSnowCheckChange(event) {
+  settings.snow.enabled = event.target.checked;
+  // save settings
+  await storage.set({ snow: settings.snow });
+}
+
+async function handleSnowDensityChange(event) {
+  settings.snow.density = event.target.value;
+  // save settings
+  await storage.set({ snow: settings.snow });
+}
+
+async function handleUpdateClick() {
+  // get the active tab(s)
+  const queryResult = await tabs.query({
+    currentWindow: true,
+    active: true,
+  });
+
+  // send update message
+  for (let i = 0; i < queryResult.length; i++) {
+    try {
+      tabs.sendMessage(queryResult[i].id, 'HO_HO_HO');
+    } catch (e) {
+      console.log(`Failed to send message to tab; with error: ${e}`);
+    }
   }
 }
 
