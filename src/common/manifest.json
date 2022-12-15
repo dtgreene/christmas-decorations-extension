@@ -1,6 +1,6 @@
 {
-  "name": "Christmas Lights Extension",
-  "version": "0.4",
+  "name": "Christmas Decorations",
+  "version": "0.6",
   "permissions": ["storage"],
   "icons": { "48": "icons/48.png", "96": "icons/96.png" },
   "content_scripts": [
