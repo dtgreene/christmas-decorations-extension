@@ -1,6 +1,7 @@
 // this file is used to prepare the extensions
 const fs = require('fs-extra');
 const path = require('path');
+const { readJSON } = require('./utils');
 
 // setup dist directory
 if (fs.pathExistsSync('dist')) {
@@ -42,10 +43,6 @@ writeManifest(
   manifests.common,
   manifests.firefox
 );
-
-function readJSON(filePath) {
-  return JSON.parse(fs.readFileSync(filePath).toString());
-}
 
 function writeManifest(filePath, source1, source2) {
   fs.writeFileSync(
