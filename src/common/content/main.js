@@ -37,6 +37,8 @@ const snowMaxOpacity = 0.8;
 // perform setup
 init();
 
+// a slightly-reduced version of this: https://github.com/IceCreamYou/MainLoop.js/
+// for some reason there was a problem using MainLoop.js when loaded externally in Firefox
 class MainLoop {
   // runs. See `MainLoop.setSimulationTimestep()` for details.
   simulationTimestep = 1000 / 60;
